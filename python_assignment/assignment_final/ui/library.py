@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QComboBox, QSpinBox, QMenuBar, QAction, QGridLayout,QHeaderView)
 from PyQt5.QtCore import Qt
 from datatype.utils import MAX_BORROW
+from ui.login import LoginDialog
 
 class MainWindow(QMainWindow):
     def __init__(self, library_service):
@@ -20,16 +21,15 @@ class MainWindow(QMainWindow):
         self.update_book_table()
 
     def _init_ui(self):
-        # 统一初始化基础设置（无论管理员还是普通用户）
         self.setWindowTitle(f"图书管理系统 - {self.current_user.username}")
         self.setMinimumSize(800, 600)
-        self._init_menubar()  # 统一初始化菜单栏
+        self._init_menubar()  
 
         # 统一创建标签页容器并设置为中央部件
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
 
-        # 普通用户标签页（管理员也可查看，或根据需求调整）
+        # 普通用户标签页
         self.book_tab = self._create_book_tab()
         self.tabs.addTab(self.book_tab, "图书查询/浏览")
 
@@ -39,23 +39,21 @@ class MainWindow(QMainWindow):
         self.history_tab = self._create_history_tab()
         self.tabs.addTab(self.history_tab, "借阅历史")
         print(self.library_service._is_admin())
-        # 管理员专属标签页
+
         if self.library_service._is_admin():
             self.manage_tab = self._create_manage_tab()
             self.tabs.addTab(self.manage_tab, "图书管理（管理员）")
 
     def _init_menubar(self):
         menubar = self.menuBar()
-        menubar.clear()  # 关键：清除已有菜单，避免重复
+        menubar.clear()  
 
-        # 文件菜单
         file_menu = menubar.addMenu("文件")
         self.logout_action = QAction("退出登录", self)
         self.exit_action = QAction("退出系统", self)
         file_menu.addAction(self.logout_action)
         file_menu.addAction(self.exit_action)
 
-        # 帮助菜单
         help_menu = menubar.addMenu("帮助")
         about_action = QAction("关于", self)
         help_menu.addAction(about_action)
@@ -66,7 +64,6 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         layout = QVBoxLayout(widget)
 
-        # 搜索栏
         search_layout = QHBoxLayout()
         self.search_type = QComboBox()
         self.search_type.addItems(["索引号", "书名", "作者", "分类"])
@@ -81,7 +78,6 @@ class MainWindow(QMainWindow):
         search_layout.addWidget(search_btn)
         search_layout.addWidget(show_all_btn)
 
-        # 图书表格
         self.book_table = QTableWidget()
         self.book_table.setColumnCount(5)
         self.book_table.setHorizontalHeaderLabels(["索引号", "书名", "作者", "分类", "库存"])
@@ -90,7 +86,6 @@ class MainWindow(QMainWindow):
         layout.addLayout(search_layout)
         layout.addWidget(self.book_table)
 
-        # 绑定事件
         search_btn.clicked.connect(self.search_book)
         show_all_btn.clicked.connect(self.show_all_books)
 
@@ -146,17 +141,17 @@ class MainWindow(QMainWindow):
 
         return widget
 
+
+# ===================================管理员页面============================================
     def _create_manage_tab(self):
         """管理员图书管理页"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
 
-        # 添加图书区
         add_layout = QVBoxLayout()
         add_layout.addWidget(QLabel("=== 添加新图书 ==="))
         form_layout = QGridLayout()
 
-        # 添加表单
         form_layout.addWidget(QLabel("索引号："), 0, 0)
         self.add_index = QLineEdit()
         form_layout.addWidget(self.add_index, 0, 1)
@@ -183,7 +178,6 @@ class MainWindow(QMainWindow):
         add_layout.addLayout(form_layout)
         add_layout.addWidget(add_btn)
 
-        # 修改/删除区
         edit_layout = QVBoxLayout()
         edit_layout.addWidget(QLabel("=== 修改/删除图书 ==="))
         edit_form_layout = QGridLayout()
@@ -221,13 +215,10 @@ class MainWindow(QMainWindow):
 
         edit_layout.addLayout(edit_form_layout)
         edit_layout.addLayout(btn_layout)
-
-        # 整体布局
         layout.addLayout(add_layout)
         layout.addSpacing(30)
         layout.addLayout(edit_layout)
 
-        # 绑定事件
         add_btn.clicked.connect(self.add_book)
         modify_btn.clicked.connect(self.modify_book)
         delete_btn.clicked.connect(self.delete_book)
@@ -235,18 +226,16 @@ class MainWindow(QMainWindow):
         return widget
 
     def _bind_signals(self):
-        # 先断开已有连接，避免重复绑定（关键）
         try:
             self.library_service.signals.book_operation.disconnect(self._show_book_msg)
         except (RuntimeError, TypeError):
-            pass  # 若未绑定过，忽略错误
+            pass 
 
         try:
             self.library_service.signals.data_saved.disconnect()
         except (RuntimeError, TypeError):
             pass
 
-        # 重新绑定信号
         self.logout_action.triggered.connect(self.logout)
         self.exit_action.triggered.connect(self.close)
 
@@ -388,7 +377,6 @@ class MainWindow(QMainWindow):
     def logout(self):
         self.library_service.logout()
         self.close()
-        from ui.login import LoginDialog
         login_dialog = LoginDialog(self.library_service)
         login_dialog.login_success.connect(self._restart)
         login_dialog.exec_()

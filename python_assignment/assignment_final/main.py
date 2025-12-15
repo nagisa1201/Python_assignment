@@ -10,7 +10,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from services import LibrarySystem
 from ui.login import LoginDialog
-from ui.main import MainWindow
+from ui.library import MainWindow
 
 def main():
     # 初始化Qt应用

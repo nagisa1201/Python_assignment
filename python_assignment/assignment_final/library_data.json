@@ -54,6 +54,14 @@
       "category": "教科书",
       "stock": 1,
       "borrow_records": []
+    },
+    {
+      "index_id": "100",
+      "title": "1",
+      "author": "1",
+      "category": "1",
+      "stock": 1,
+      "borrow_records": []
     }
   ],
   "users": [
