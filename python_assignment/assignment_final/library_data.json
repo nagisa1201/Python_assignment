@@ -1,0 +1,122 @@
+{
+  "books": [
+    {
+      "index_id": "1",
+      "title": "灿烂千阳",
+      "author": "哈立德·侯赛尼",
+      "category": "小说",
+      "stock": 0,
+      "borrow_records": [
+        [
+          "nagisa",
+          "2025-11-22",
+          null
+        ]
+      ]
+    },
+    {
+      "index_id": "2",
+      "title": "追风筝的人",
+      "author": "哈立德·侯赛尼",
+      "category": "小说",
+      "stock": 4,
+      "borrow_records": [
+        [
+          "nagisa",
+          "2025-11-22",
+          "2025-12-15"
+        ],
+        [
+          "nagisa",
+          "2025-12-15",
+          "2025-12-15"
+        ]
+      ]
+    },
+    {
+      "index_id": "3",
+      "title": "C语言程序设计",
+      "author": "某作者",
+      "category": "技术",
+      "stock": 0,
+      "borrow_records": [
+        [
+          "zhouker",
+          "2025-11-22",
+          null
+        ]
+      ]
+    },
+    {
+      "index_id": "23",
+      "title": "模拟电子线路",
+      "author": "乌兰图雅",
+      "category": "教科书",
+      "stock": 1,
+      "borrow_records": []
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "user_type": "admin",
+      "borrowed_books": [],
+      "borrow_history": []
+    },
+    {
+      "username": "nagisa",
+      "password": "1234",
+      "user_type": "user",
+      "borrowed_books": [
+        "2",
+        "1"
+      ],
+      "borrow_history": [
+        [
+          {
+            "index_id": "2",
+            "title": "追风筝的人",
+            "author": "哈立德·侯赛尼",
+            "category": "小说",
+            "stock": 3,
+            "borrow_records": [
+              [
+                "nagisa",
+                "2025-11-22",
+                null
+              ]
+            ]
+          },
+          "2025-11-22",
+          null
+        ],
+        [
+          {
+            "index_id": "1",
+            "title": "灿烂千阳",
+            "author": "哈立德·侯赛尼",
+            "category": "小说",
+            "stock": 0,
+            "borrow_records": [
+              [
+                "nagisa",
+                "2025-11-22",
+                null
+              ]
+            ]
+          },
+          "2025-11-22",
+          null
+        ]
+      ]
+    },
+    {
+      "username": "zhouker",
+      "password": "111",
+      "user_type": "user",
+      "borrowed_books": [],
+      "borrow_history": []
+    }
+  ]
+}
