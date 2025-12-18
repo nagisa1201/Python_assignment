@@ -39,7 +39,6 @@ def calculate_overdue_days(borrow_date_str, return_date_str):
     return_date = datetime.datetime.strptime(return_date_str, "%Y-%m-%d").date()
     return (return_date - borrow_date).days - BORROW_DAYS
 
-# 信号类
 class ServiceSignals(QObject):
     data_loaded = pyqtSignal(bool, str)
     data_saved = pyqtSignal(bool, str)

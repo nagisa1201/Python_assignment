@@ -25,7 +25,6 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(800, 600)
         self._init_menubar()  
 
-        # 统一创建标签页容器并设置为中央部件
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
 
@@ -242,7 +241,6 @@ class MainWindow(QMainWindow):
         self.library_service.signals.book_operation.connect(self._show_book_msg)
         self.library_service.signals.data_saved.connect(lambda s, m: QMessageBox.information(self, "数据保存", m))
 
-    # UI更新方法
     def update_book_table(self, books=None):
         books = books or self.library_service.books.values()
         self.book_table.setRowCount(0)
@@ -302,8 +300,8 @@ class MainWindow(QMainWindow):
         self.update_book_table(results)
         QMessageBox.information(self, "搜索结果", f"找到 {len(results)} 本匹配图书！")
 
-    def show_all_books(self):
-        in_stock_books = [b for b in self.library_service.books.values() if b.stock > 0]
+    def show_all_books(self): 
+        in_stock_books = [b for b in self.library_service.books.values() if b.stock > 0] #####
         self.update_book_table(in_stock_books)
 
     def borrow_book(self):
@@ -383,8 +381,8 @@ class MainWindow(QMainWindow):
 
     def _restart(self):
         self.current_user = self.library_service.current_user
-        # 清除旧的中央部件，避免重复创建
-        if hasattr(self, 'tabs'):
+
+        if hasattr(hasattr(self, 'tabs')):
             self.tabs.deleteLater()  # 销毁旧标签页容器
         self._init_ui()  # 重新初始化UI
         self._bind_signals()

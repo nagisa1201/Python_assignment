@@ -2,7 +2,7 @@
 Author: Nagisa 2964793117@qq.com
 Date: 2025-11-21 22:13:02
 LastEditors: Nagisa 2964793117@qq.com
-LastEditTime: 2025-11-22 16:30:44
+LastEditTime: 2025-12-16 18:59:58
 FilePath: \python_assignment\assignment_final\models.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -37,9 +37,8 @@ class User:
         self.username = username
         self.password = password
         self.user_type = "user"
-        self.borrowed_books = []  # 当前借阅的图书索引号
-        self.borrow_history = []  # 格式：[(book_dict, borrow_date, return_date), ...]
-
+        self.borrowed_books = []  
+        self.borrow_history = []  
     def to_dict(self):
         return self.__dict__.copy()
 
